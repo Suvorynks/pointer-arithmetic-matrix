@@ -1,0 +1,69 @@
+#include <iostream>
+ 
+ 
+ 
+using namespace std;
+ 
+int main()
+{
+    int rows, cols;
+ 
+    cout << "Enter the number of
+rows of the matrix: ";
+    cin >> rows;
+    cout << "Enter the number of
+columns of the matrix: ";
+    cin >> cols;
+ 
+    // Динамічне виділення пам'яті для матриці
+    int* matrix = new int[rows * cols];
+ 
+    // Введення елементів матриці
+    cout << "Enter elements of the
+matrix:" << endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cin >> *(matrix + i * cols + j); // Використання адресної арифметики
+        }
+    }
+ 
+ 
+    cout << "Matrix:" << endl;
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            cout << *(matrix + i * cols + j) << " ";
+        }
+        cout << endl;
+    }
+ 
+    // Ініціалізація початкових значень для пошуку
+    int maxElement = *(matrix);
+    int minElement = *(matrix);
+    int maxRow = 0, maxCol = 0;
+    int minRow = 0, minCol = 0;
+ 
+    // Пошук максимального та мінімального елементів і їх координат
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            int value = *(matrix + i * cols + j);
+            if (value > maxElement) {
+                maxElement = value;
+                maxRow = i;
+                maxCol = j;
+            }
+            if (value < minElement) {
+                minElement = value;
+                minRow = i;
+                minCol = j;
+            }
+        }
+    }
+ 
+    // Вивід результатів
+    cout << "MaxElement: " << maxElement << " on position (" << maxRow << ", " << maxCol << ")" << endl;
+    cout << "MinElement: " << minElement << " on position (" << minRow << ", " << minCol << ")" << endl;
+ 
+    // Очищення пам'яті
+    delete[] matrix;
+ 
+    return 0;
